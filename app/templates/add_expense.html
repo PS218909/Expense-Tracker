@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/add" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+    </div>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount">
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="category" id="category" class="form-select">
+            {% for category in categories %}
+                {% if category.name == "Not Categorized" %}
+                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                {% else %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
