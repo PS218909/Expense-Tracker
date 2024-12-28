@@ -58,7 +58,7 @@ def add_expense():
         expense = Expense(title=title, amount=float(amount), category=category, date=dt.now(pytz.timezone('Asia/Kolkata')))
         db.session.add(expense)
         db.session.commit()
-        return redirect(url_for('routes.home'))
+        return redirect(url_for('routes.view_expenses'))
     if request.method == 'GET':
         categories = Category.query.all()
         return render_template('add_expense.html', categories = categories)
@@ -90,7 +90,9 @@ def view_expenses():
 
 @bp.route("/category/view/<string:name>", methods = ["GET"])
 def view_category(name):
-    expenses = Expense.query.filter(Expense.category == name)
+    expenses = list(Expense.query.filter(Expense.category == name))
+    for expense in expenses:
+        expense.date = str(expense.date).split(" ")[0]
     return render_template("view_expense.html", expenses = expenses)
 
 @bp.route('/delete/<int:id>', methods = ["GET"])

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ message }}</h2>
+<div class="mb-3">
+    <h2>{{ message }}</h2>
+    <a href="/add" class="btn btn-primary">Add</a>
+    <a href="/export" class="btn btn-primary" target="_blank">Export</a>
+</div>
 <form action="/view" method="get">
     <div class="input-group mb-3">
         <span for="date" class="input-group-text">Search By Date</span>
@@ -19,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for expense in expenses %}
+        {% for expense in expenses[::-1] %}
         <tr scope="row">
             <td>{{ expense.date }}</td>
             <td>{{ expense.title }}</td>
@@ -33,6 +37,4 @@
         {% endfor %}
     </tbody>
 </table>
-<a href="/add" class="btn btn-primary">Add</a>
-<a href="/export" class="btn btn-primary" target="_blank">Export</a>
 {% endblock %}
