@@ -2,9 +2,26 @@
 {% block content %}
     <h1>Edit Expense</h1>
     <form method="post">
-        <input type="text" name="title" placeholder="Title" value="{{ expense.title }}">
-        <input type="number" name="amount" placeholder="Amount" value="{{ expense.amount }}">
-        <input type="text" name="category" placeholder="Category" value="{{ expense.category }}">
-        <button>Submit</button>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ expense.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{ expense.amount }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" class="form-select" required>
+                {% for category in categories %}
+                    {% if category.name == expense.category %}
+                        <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                    {% else %}
+                        <option value="{{ category.name }}">{{ category.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}

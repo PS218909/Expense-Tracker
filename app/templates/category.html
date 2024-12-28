@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Category</h1>
+    <img src="{{ url_for('static', filename='pie.png') }}" alt="Category Pie Chart" class="rounded mx-auto d-block">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr scope="row">
+                    <td>{{ category.name }}</td>
+                    <td>INR {{ category.total or 0.0 }}</td>
+                    <td>
+                        <a href="/category/view/{{ category.name }}" class="btn btn-primary">View</a>
+                        <a href="/category/delete/{{ category.name }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </ul>
+    <a href="/category/add" class="btn btn-primary">Add</a>
+{% endblock %}
